@@ -1,0 +1,30 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.idea/
+
+# Run outputs. The harness writes alongside its inputs by default, so these patterns keep a
+# translation run from being committed — and, more to the point, keep licensed subtitle data
+# out of the repository if someone points the harness at a corpus inside the checkout.
+*.srt
+!harness/examples/*.srt
+*.vtt
+*.ass
+*.jsonl
+*_memory.json
+runs/
+results/
+out/
+
+# SubMQM's judge cache and raw judgements. Re-derivable, and they quote the reference
+# translations verbatim, which are licensed.
+.submqm-cache/
+raw/
+
+# LaTeX build products from tables.py
+*.aux
+*.log
+*.out
+*.pdf

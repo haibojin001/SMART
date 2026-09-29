@@ -1,0 +1,42 @@
+# SMART — full install, including every web-search backend.
+#
+# Only `anthropic` is needed to translate. Everything below it serves the research tool, which the
+# cores reach through an import chain tried in a fixed order; if none of the three imports, the
+# tool becomes a stub returning "ERROR: No search backend available", which the pipeline treats as
+# a tool call that found nothing. So a minimal install runs — it just does not look anything up.
+# See requirements-min.txt.
+#
+# Python 3.9 or newer. The cores use PEP 604 annotations (`list[str] | None`) but open with
+# `from __future__ import annotations`, so the unions are never evaluated and 3.9 is enough. That
+# is deliberate rather than incidental: without the future import these files parse on 3.9 and
+# then fail at *import*, which is a confusing way to learn about a version requirement.
+
+# --- required -------------------------------------------------------------------------
+# The official SDK, and the only way the cores reach a model. One client class serves all three
+# endpoints — the direct API, Bedrock and Vertex — because the request and response shapes are
+# the Messages API in every case; ANTHROPIC_PROVIDER picks one. Verified against 0.120.2 and
+# 1.9.0, so the lower bound is a floor and not a guess: `messages.create`, `model_dump`,
+# `APIStatusError` and the three client classes are unchanged across that major bump.
+anthropic>=0.40.0
+
+# Needed only if ANTHROPIC_PROVIDER=bedrock or =vertex, which nothing in the method requires.
+# Uncomment the line matching your deployment; the direct API needs neither.
+# boto3>=1.34.0                 # ANTHROPIC_PROVIDER=bedrock
+# google-auth>=2.23.0           # ANTHROPIC_PROVIDER=vertex
+
+# --- research tool, backend 1: Google in a real browser -------------------------------
+# Tried first, and what the paper's runs used. It is the only backend that survives a CAPTCHA,
+# because it is a real browser. Needs Chrome or Firefox on the host.
+selenium>=4.15.0
+webdriver-manager>=4.0.0      # fetches a matching driver rather than requiring one on PATH
+undetected-chromedriver>=3.5.0
+
+# --- research tool, backend 2: DuckDuckGo, no browser ---------------------------------
+# Tried second. Lowest cost, no driver, no display — the right choice on a headless server.
+ddgs>=0.9.0                   # current package name
+# duckduckgo-search>=6.0.0    # former name; the code imports either, uncomment for old envs
+
+# --- research tool, backend 3: DuckDuckGo through Selenium ----------------------------
+# Tried last. Reached only when backend 2's library is missing but a browser is present.
+requests>=2.31.0
+beautifulsoup4>=4.12.0

@@ -1,0 +1,15 @@
+# SMART — minimum install: translate, evolve and score, with no web research.
+#
+# The research tool is one of the ablated components, so the configuration it is switched off in
+# has to be installable on its own; if the search backends were mandatory, the no-research
+# ablation could not be run on a machine without a browser.
+#
+# To run that ablation, set SMART_NO_SEARCH=1 rather than relying on a missing package. The cores
+# check it before attempting any search import, and the stub it installs returns
+# "ERROR: search disabled (SMART_NO_SEARCH)" — a distinct string from the one a failed import
+# produces, so a deliberately disabled run can be told apart from a broken install in the logs.
+# Either way the pipeline records a tool call that found nothing rather than raising.
+#
+# The evaluator needs nothing beyond the standard library and this one package. Python 3.9+.
+
+anthropic>=0.40.0
