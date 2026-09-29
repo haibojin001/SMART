@@ -1,11 +1,4 @@
-# SMART — Self-evolving Multi-Agent subtitle tRanslaTion
-
-Code for the paper. This repository holds the system, the self-evolution loop, the instrumentation
-and the SubMQM evaluator. **It does not hold the benchmark.** The evaluation data is licensed
-subtitle material from commercial series and cannot be redistributed, so what is published here is
-everything needed to re-run the method on your own data, and nothing that would reproduce a number
-in the paper without it.
-
+Breaking Babel: A Self-Evolving Multi-Agent System for Long-Form Subtitle Translation
 ```
 harness/            entry points — nothing in mas_core/ has a __main__
   run_smart.py        translate one episode, or a series in order
