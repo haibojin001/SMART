@@ -62,8 +62,6 @@ installed and tells a missing file apart from a broken one. It is a parse check,
 check: a core can parse and still fail to import, which is why `requirements.txt` states the
 Python floor rather than leaving it to be discovered.
 
-## Why thirty files instead of one
-
 `mas_core/` contains thirty near-duplicate modules rather than one core parameterised by locale.
 That is deliberate. Each file carries its own agent prompts, judge criteria, cue lists, quotation
 and punctuation rules and display limits, written in the target language's own terms — Korean line
