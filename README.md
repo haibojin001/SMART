@@ -1,4 +1,4 @@
-Breaking Babel: A Self-Evolving Multi-Agent System for Long-Form Subtitle Translation
+## Breaking Babel: A Self-Evolving Multi-Agent System for Long-Form Subtitle Translation
 ```
 harness/            entry points — nothing in mas_core/ has a __main__
   run_smart.py        translate one episode, or a series in order
